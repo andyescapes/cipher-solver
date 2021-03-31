@@ -1,23 +1,42 @@
 import logo from './logo.svg';
 import './App.css';
+import './components/WordColumn';
+import React, { useState } from 'react';
+import WordColumn from './components/WordColumn';
 
 function App() {
+  
+  const [inputWord, setInputWord] = useState([])
+  console.log(inputWord)
   return (
+    
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <h1>
+        Cipher Solver
+      </h1>
+      <input placeholder = {"Type in your Cipher"} id ="input">
+      </input>
+      <button onClick = {() =>{
+        setInputWord(document.getElementById("input").value.split(""))
+        //document.getElementById("blanks").innerText = document.getElementById("input").value.replace(/\S/g, "-")
+        
+        }}>Enter</button>
+
+        
+        
+      
+      <p id = "blanks"></p>
+      <p id = "cipher"></p>
+      <div className = "letter_container">
+      {inputWord.map( char =>(
+        <WordColumn letter={char}></WordColumn>
+      )
+          
+          
+        )}
+      </div>
+      
     </div>
   );
 }
