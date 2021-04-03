@@ -5,10 +5,14 @@ function WordColumn(props) {
         <>
         {props.letter !== " " ? (
             <div className = "word_column">
+            <p>
             _
-            <br>
-            </br>
+            </p>
+
+            <p>
             {props.letter}
+            </p>
+            
         </div>
         ) : <div className = "space">
     </div>}

@@ -8,10 +8,28 @@
 }
 
 .letter_container{
+    width: 100%;
     display: flex;
     justify-content: center;
 }
 
 .space{
     width: 5px;
+}
+
+.key_container{
+    padding: 7%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.key_input{
+    margin: 2px;
+}
+
+.highlight{
+    background-color: #FFFF00;
+    
 }
