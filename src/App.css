@@ -14,11 +14,11 @@
 }
 
 .space{
-    width: 5px;
+    width: 10px;
 }
 
 .key_container{
-    padding: 7%;
+    padding: 0 7%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -31,5 +31,6 @@
 
 .highlight{
     background-color: #FFFF00;
-    
+
 }
+

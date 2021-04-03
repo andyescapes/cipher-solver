@@ -4,6 +4,7 @@ import './components/WordColumn';
 import React, { useState } from 'react';
 import WordColumn from './components/WordColumn';
 import KeyInput from './components/KeyInput';
+import {caesar} from './helper/caesar'
 
 function App() {
   
@@ -11,6 +12,19 @@ function App() {
   console.log(inputWord)
   const alpha = Array.from({ length: 26 }, (_, i) => String.fromCharCode('A'.charCodeAt(0) + i));
 
+
+  const caesar_solve = (input) =>{
+    if(input && document.getElementById("message")){
+      //const res_arr = caesar(input.join(""))
+      const message =  document.getElementById("message")
+      message.innertext = "xcv"
+      // res_arr.map(res=> {
+      //   message.innerText += `${res} `
+      // })
+      //console.log(res_arr)
+
+    }
+  }
 
   return (
     
@@ -48,7 +62,10 @@ function App() {
       }
       </div>
       
-
+      <button onClick = {caesar_solve(inputWord)}>
+        Caesar Solve
+      </button>
+      <p id = "message"></p>
 
       
     </div>
