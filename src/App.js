@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 
 function App() {
@@ -99,53 +100,63 @@ function App() {
           return <KeyInput letter={alpha_letter} key={alpha_letter}></KeyInput>;
         })}
       </div>
+      <Box mt={2} mb={3}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => caesar_solve(inputWord)}
+        >
+          Caesar Solve
+        </Button>
 
-      <button onClick={() => caesar_solve(inputWord)}>Caesar Solve</button>
+        {caesarResult.map((res) => (
+          <p>{res}</p>
+        ))}
+      </Box>
+      <Container>
+        <Grid container spacing={3}>
+          <Grid item xs={4}>
+            <Card>
+              <h4>Frequency Analysis</h4>
+              {frequency.map((term) => (
+                <Typography variant="body1" gutterBottom>
+                  {term.letter}: {term.count}
+                </Typography>
+              ))}
+              <Container>
+                <Typography variant="body2" gutterBottom>
+                  The most frequent letters in english are in the order E, A, R,
+                  I, O, T, N, S, L, C
+                </Typography>
+              </Container>
+            </Card>
+          </Grid>
+          <Grid item xs={4}>
+            <Card>
+              <h4>Single Letters</h4>
+              <Container>
+                <Typography variant="body2" gutterBottom>
+                  The single letters are either A or I
+                </Typography>
+              </Container>
+            </Card>
+          </Grid>
+          <Grid item xs={4}>
+            <Card>
+              <h4>Repeated Letters</h4>
 
-      {caesarResult.map((res) => (
-        <p>{res}</p>
-      ))}
-      <Grid container spacing={3}>
-        <Grid item xs={4}>
-          <Card>
-            <h4>Frequency Analysis</h4>
-            {frequency.map((term) => (
-              <Typography variant="body1" gutterBottom>
-                {term.letter}: {term.count}
-              </Typography>
-            ))}
-            <Container>
-              <Typography variant="body2" gutterBottom>
-                The most frequent letters in english are in the order E, A, R,
-                I, O, T, N, S, L, C
-              </Typography>
-            </Container>
-          </Card>
+              <Container>
+                <Typography variant="body2" gutterBottom>
+                  double letters most likely to be LL and if not EE, SS, OO and
+                  TT
+                </Typography>
+              </Container>
+
+              <Button>Fill in</Button>
+            </Card>
+          </Grid>
         </Grid>
-        <Grid item xs={4}>
-          <Card>
-            <h4>Single Letters</h4>
-            <Container>
-              <Typography variant="body2" gutterBottom>
-                The single letters are either A or I
-              </Typography>
-            </Container>
-          </Card>
-        </Grid>
-        <Grid item xs={4}>
-          <Card>
-            <h4>Repeated Letters</h4>
-
-            <Container>
-              <Typography variant="body2" gutterBottom>
-                double letters most likely to be LL and if not EE, SS, OO and TT
-              </Typography>
-            </Container>
-
-            <Button>Fill in</Button>
-          </Card>
-        </Grid>
-      </Grid>
+      </Container>
     </div>
   );
 }
