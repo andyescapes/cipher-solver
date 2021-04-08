@@ -31,7 +31,11 @@ function KeyInput(props) {
       //console.log(letters[i].lastChild.innerText,props.letter.toLowerCase() )
       if (letters[i].lastChild.innerText == props.letter.toLowerCase()) {
         const val = document.getElementById(props.letter).value;
-        if (val && val.length === 1) letters[i].firstChild.innerText = val;
+        if (val) {
+          letters[i].firstChild.innerText = val;
+        } else {
+          letters[i].firstChild.innerText = "_";
+        }
       }
     }
   };

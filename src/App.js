@@ -129,12 +129,6 @@ function App() {
               <Typography variant="body2" gutterBottom>
                 The single letters are either A or I
               </Typography>
-              <Button variant="contained" color="primary">
-                Fill A
-              </Button>
-              <Button variant="contained" color="secondary">
-                Fill I
-              </Button>
             </Container>
           </Card>
         </Grid>
