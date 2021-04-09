@@ -75,7 +75,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Cipher Solver</h1>
+      <h1>Cipher Helper</h1>
       <input placeholder={"Type in your Cipher"} id="input"></input>
       <button
         onClick={() => {
@@ -151,8 +151,6 @@ function App() {
                   TT
                 </Typography>
               </Container>
-
-              <Button>Fill in</Button>
             </Card>
           </Grid>
         </Grid>
