@@ -66,11 +66,37 @@ function App() {
         body: JSON.stringify(body),
       });
       console.log(result);
+      if (result.status == "200") {
+        setCaesarResult(res_json.result);
+      } else if (result.status == "400") {
+        setCaesarResult(["No solutions, this isn't a Caesar Cipher"]);
+      } else {
+        setCaesarResult(["Server Error!"]);
+      }
       const res_json = await result.json();
       console.log(res_json);
-      setCaesarResult(res_json.result);
     };
     call_solve(phrase);
+  };
+
+  const fill_single = (letter) => {
+    const letters = document.getElementsByClassName("single");
+    if (letters.length != 0) {
+      let store = letters[0].lastChild.innerText;
+      for (let i = 0; i < letters.length; i++) {
+        if (letters[i].lastChild.innerText != store) {
+          letters[i].firstChild.innerText = letter == "a" ? "i" : "a";
+          document.getElementById(
+            letters[i].lastChild.innerText.toUpperCase()
+          ).value = letter == "a" ? "i" : "a";
+        } else {
+          letters[i].firstChild.innerText = letter;
+          document.getElementById(
+            letters[i].lastChild.innerText.toUpperCase()
+          ).value = letter;
+        }
+      }
+    }
   };
 
   return (
@@ -79,7 +105,9 @@ function App() {
       <input placeholder={"Type in your Cipher"} id="input"></input>
       <button
         onClick={() => {
-          setInputWord(document.getElementById("input").value.split(""));
+          setInputWord(
+            document.getElementById("input").value.toLowerCase().split("")
+          );
           //document.getElementById("blanks").innerText = document.getElementById("input").value.replace(/\S/g, "-")
         }}
       >
@@ -89,9 +117,30 @@ function App() {
       <p id="blanks"></p>
       <p id="cipher"></p>
       <div className="letter_container">
-        {inputWord.map((char) => (
-          <WordColumn letter={char}></WordColumn>
-        ))}
+        {inputWord.map((char, index) => {
+          if (index - 1 !== inputWord.length && index != 0) {
+            if (inputWord[index - 1] == " " && inputWord[index + 1] == " ") {
+              return (
+                <WordColumn
+                  key={index}
+                  letter={char}
+                  single={true}
+                ></WordColumn>
+              );
+            }
+          }
+          if (index + 1 == inputWord.length && inputWord[index - 1] == " ") {
+            return (
+              <WordColumn key={index} letter={char} single={true}></WordColumn>
+            );
+          }
+          if (index === 0 && inputWord[index + 1] == " ") {
+            return (
+              <WordColumn key={index} letter={char} single={true}></WordColumn>
+            );
+          }
+          return <WordColumn key={index} letter={char}></WordColumn>;
+        })}
       </div>
 
       <div className="key_container">
@@ -115,42 +164,83 @@ function App() {
       </Box>
       <Container>
         <Grid container spacing={3}>
-          <Grid item xs={4}>
-            <Card>
+          <Grid item xs={8}>
+            <Grid container spacing={3}>
+              <Grid item xs={6}>
+                <Card>
+                  <h4>Single Letters</h4>
+                  <Container>
+                    <Typography variant="body2" gutterBottom>
+                      The single letters are either A or I
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="primary"
+                        onClick={() => fill_single("a")}
+                      >
+                        Fill A
+                      </Button>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => fill_single("i")}
+                      >
+                        Fill I
+                      </Button>
+                    </Typography>
+                  </Container>
+                </Card>
+              </Grid>
+              <Grid item xs={6}>
+                <Card>
+                  <h4>Repeated Letters</h4>
+
+                  <Container>
+                    <Typography variant="body2" gutterBottom>
+                      double letters most likely to be LL and if not EE, SS, OO
+                      and TT
+                    </Typography>
+                  </Container>
+                </Card>
+              </Grid>
+              <Grid item xs={6}>
+                <Card>
+                  <h4>Two Letter Words</h4>
+                  <Container>
+                    <Typography variant="body2" gutterBottom>
+                      The most common 2 letter words are: of, to, in, it, is,
+                      be, as, at, so, we, he
+                    </Typography>
+                  </Container>
+                </Card>
+              </Grid>
+              <Grid item xs={6}>
+                <Card>
+                  <h4>Three Letter Words</h4>
+                  <Container>
+                    <Typography variant="body2" gutterBottom>
+                      The most common 3 letter words are: the, and, for, are,
+                      but, not, you, all, any, can, had, her, was, one, our
+                    </Typography>
+                  </Container>
+                </Card>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={4} style={{ height: "100%" }}>
+            <Card style={{ height: "100%" }}>
               <h4>Frequency Analysis</h4>
+              <Container>
+                <Typography variant="body2" gutterBottom>
+                  The most frequent letters are E, A, R, I, O, T, N, S, L, C
+                </Typography>
+              </Container>
               {frequency.map((term) => (
                 <Typography variant="body1" gutterBottom>
                   {term.letter}: {term.count}
                 </Typography>
               ))}
-              <Container>
-                <Typography variant="body2" gutterBottom>
-                  The most frequent letters in english are in the order E, A, R,
-                  I, O, T, N, S, L, C
-                </Typography>
-              </Container>
-            </Card>
-          </Grid>
-          <Grid item xs={4}>
-            <Card>
-              <h4>Single Letters</h4>
-              <Container>
-                <Typography variant="body2" gutterBottom>
-                  The single letters are either A or I
-                </Typography>
-              </Container>
-            </Card>
-          </Grid>
-          <Grid item xs={4}>
-            <Card>
-              <h4>Repeated Letters</h4>
-
-              <Container>
-                <Typography variant="body2" gutterBottom>
-                  double letters most likely to be LL and if not EE, SS, OO and
-                  TT
-                </Typography>
-              </Container>
             </Card>
           </Grid>
         </Grid>
