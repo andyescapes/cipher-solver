@@ -58,7 +58,7 @@ function App() {
         phrase: input,
       };
 
-      const result = await fetch("http://localhost:3001/caesar", {
+      const result = await fetch("https://vast-taiga-92760.herokuapp.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
